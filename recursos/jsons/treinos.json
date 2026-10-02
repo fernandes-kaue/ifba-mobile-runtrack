@@ -1,0 +1,99 @@
+{
+  "treinos": [
+    {
+      "_id": 1,
+      "datetime": "2026-09-27T08:00:00",
+      "athlete": {
+        "name": "Kauê Fernandes",
+        "avatar": "avatar.png"
+      },
+      "likes": 14,
+      "workout": {
+        "name": "Longão de Domingo na Orla",
+        "description": "Treino com sensação ótima, temperatura amena e hidratação a cada 4 km. Foco em manter o ritmo constante.",
+        "type": "Longo",
+        "distanceKm": 16.2,
+        "durationMin": 92,
+        "pace": "5:40 min/km",
+        "elevationM": 85,
+        "image": "treino.jpeg"
+      }
+    },
+    {
+      "_id": 2,
+      "datetime": "2026-09-26T17:30:00",
+      "athlete": {
+        "name": "Carlos Silva",
+        "avatar": "avatar.png"
+      },
+      "likes": 9,
+      "workout": {
+        "name": "Tiros na Pista de Atletismo",
+        "description": "Aquecimento 2 km + 8x 400m em ritmo forte com 1 min de intervalo + desaquecimento 2 km.",
+        "type": "Intervalado",
+        "distanceKm": 8.0,
+        "durationMin": 39,
+        "pace": "4:52 min/km",
+        "elevationM": 12,
+        "image": "treino.jpeg"
+      }
+    },
+    {
+      "_id": 3,
+      "datetime": "2026-09-25T06:45:00",
+      "athlete": {
+        "name": "Mariana Souza",
+        "avatar": "avatar.png"
+      },
+      "likes": 6,
+      "workout": {
+        "name": "Rodagem Regenerativa Leve",
+        "description": "Corrida leve para soltar as pernas após o treino de força de ontem. Frequência cardíaca na zona 2.",
+        "type": "Regenerativo",
+        "distanceKm": 5.5,
+        "durationMin": 35,
+        "pace": "6:21 min/km",
+        "elevationM": 30,
+        "image": "treino.jpeg"
+      }
+    },
+    {
+      "_id": 4,
+      "datetime": "2026-09-24T18:15:00",
+      "athlete": {
+        "name": "Kauê Fernandes",
+        "avatar": "avatar.png"
+      },
+      "likes": 19,
+      "workout": {
+        "name": "Tempo Run - Ritmo de Prova",
+        "description": "10 km cravados simulando prova de rua. Últimos 2 km no limite mas mantendo boa biomecânica.",
+        "type": "Ritmo",
+        "distanceKm": 10.0,
+        "durationMin": 48,
+        "pace": "4:48 min/km",
+        "elevationM": 64,
+        "image": "treino.jpeg"
+      }
+    },
+    {
+      "_id": 5,
+      "datetime": "2026-09-23T07:10:00",
+      "athlete": {
+        "name": "Aline Costa",
+        "avatar": "avatar.png"
+      },
+      "likes": 11,
+      "workout": {
+        "name": "Subidas e Fortalecimento no Parque",
+        "description": "Percurso misto com asfalto e terra batida, altimetria acumulada bem puxada. Foco na força de passadas.",
+        "type": "Longo",
+        "distanceKm": 12.0,
+        "durationMin": 74,
+        "pace": "6:10 min/km",
+        "elevationM": 190,
+        "image": "treino.jpeg"
+      }
+    }
+  ]
+}
