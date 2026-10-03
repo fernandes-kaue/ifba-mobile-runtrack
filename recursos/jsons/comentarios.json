@@ -1,0 +1,48 @@
+{
+  "comentarios": [
+    {
+      "_id": 1,
+      "workoutId": 1,
+      "user": {
+        "userId": 2,
+        "name": "Carlos Silva",
+        "email": "carlos@gmail.com"
+      },
+      "datetime": "2026-09-27T10:45:00-0300",
+      "content": "Pace excelente para a distância! Parabéns pela disciplina e constância!"
+    },
+    {
+      "_id": 2,
+      "workoutId": 1,
+      "user": {
+        "userId": 3,
+        "name": "Mariana Souza",
+        "email": "mariana@gmail.com"
+      },
+      "datetime": "2026-09-27T11:20:00-0300",
+      "content": "A orla sempre rende um longão sensacional com a brisa do mar."
+    },
+    {
+      "_id": 3,
+      "workoutId": 2,
+      "user": {
+        "userId": 1,
+        "name": "Kauê Fernandes",
+        "email": "kaue@runtrack.com"
+      },
+      "datetime": "2026-09-26T18:30:00-0300",
+      "content": "Tiros de 400m são exigentes, mas constroem muito condicionamento aeróbico."
+    },
+    {
+      "_id": 4,
+      "workoutId": 4,
+      "user": {
+        "userId": 4,
+        "name": "Aline Costa",
+        "email": "aline@gmail.com"
+      },
+      "datetime": "2026-09-24T20:10:00-0300",
+      "content": "Sub 50 nos 10 km! Ritmo forte demais!"
+    }
+  ]
+}
