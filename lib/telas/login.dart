@@ -288,7 +288,12 @@ class _LoginState extends State<Login> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(24.0),
-        child: isLogado ? _buildPerfilLogado() : _buildFormularioLogin(),
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 480),
+            child: isLogado ? _buildPerfilLogado() : _buildFormularioLogin(),
+          ),
+        ),
       ),
     );
   }

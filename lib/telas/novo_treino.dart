@@ -109,9 +109,12 @@ class _NovoTreinoState extends State<NovoTreino> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
+        child: Center(
+          child: ConstrainedBox(
+            constraints: const BoxConstraints(maxWidth: 580),
+            child: Form(
+              key: _formKey,
+              child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               TextFormField(
@@ -258,6 +261,8 @@ class _NovoTreinoState extends State<NovoTreino> {
           ),
         ),
       ),
-    );
+    ),
+  ),
+);
   }
 }

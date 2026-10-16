@@ -166,26 +166,42 @@ class _TreinosState extends State<Treinos> {
           : null,
       body: _carregandoTreinos
           ? const Center(child: CircularProgressIndicator())
-          : RefreshIndicator(
-              color: Colors.blueAccent,
-              onRefresh: () => _atualizarTreinos(),
-              child: GridView.builder(
-                controller: _controladorListaTreinos,
-                scrollDirection: Axis.vertical,
-                physics: const AlwaysScrollableScrollPhysics(),
-                shrinkWrap: true,
-                padding: const EdgeInsets.all(6),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 6,
-                  mainAxisSpacing: 6,
-                  childAspectRatio: 0.52,
-                ),
-                itemCount: _treinos.length,
-                itemBuilder: (context, index) {
-                  return CartaoTreino(treino: _treinos[index]);
-                },
-              ),
+          : LayoutBuilder(
+              builder: (context, constraints) {
+                final double width = constraints.maxWidth;
+
+                // Calibra dinamicamente o aspect ratio para a proporção ideal
+                double childAspectRatio = 0.76;
+                if (width < 380) {
+                  childAspectRatio = 0.72;
+                } else if (width > 600 && width <= 900) {
+                  childAspectRatio = 0.78;
+                } else if (width > 900) {
+                  childAspectRatio = 0.82;
+                }
+
+                return RefreshIndicator(
+                  color: Colors.blueAccent,
+                  onRefresh: () => _atualizarTreinos(),
+                  child: GridView.builder(
+                    controller: _controladorListaTreinos,
+                    scrollDirection: Axis.vertical,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.all(8),
+                    gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                      maxCrossAxisExtent: 340,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                      childAspectRatio: childAspectRatio,
+                    ),
+                    itemCount: _treinos.length,
+                    itemBuilder: (context, index) {
+                      return CartaoTreino(treino: _treinos[index]);
+                    },
+                  ),
+                );
+              },
             ),
     );
   }

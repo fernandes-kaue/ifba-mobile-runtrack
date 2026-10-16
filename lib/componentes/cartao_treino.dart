@@ -14,7 +14,11 @@ class CartaoTreino extends StatelessWidget {
     return GestureDetector(
       onTap: () => {estadoApp.exibirDetalhes(treino["_id"])},
       child: Card(
+        elevation: 2,
         clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -26,17 +30,21 @@ class CartaoTreino extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
               child: Row(
                 children: [
-                  Image.asset("recursos/imagens/avatar.png", width: 34),
+                  CircleAvatar(
+                    radius: 14,
+                    backgroundImage: const AssetImage("recursos/imagens/avatar.png"),
+                    backgroundColor: Colors.grey.shade200,
+                  ),
                   const SizedBox(width: 8),
                   Expanded(
                     child: Text(
                       athlete["name"] ?? "Atleta",
                       style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
+                        fontSize: 13,
+                        fontWeight: FontWeight.w600,
                       ),
                       overflow: TextOverflow.ellipsis,
                     ),
@@ -49,7 +57,7 @@ class CartaoTreino extends StatelessWidget {
               child: Text(
                 workout["name"] ?? "Treino de Corrida",
                 style: const TextStyle(
-                  fontSize: 15,
+                  fontSize: 14,
                   fontWeight: FontWeight.bold,
                 ),
                 maxLines: 1,
@@ -57,10 +65,10 @@ class CartaoTreino extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
               child: Text(
                 workout["description"] ?? "",
-                style: const TextStyle(fontSize: 13, color: Colors.black87),
+                style: const TextStyle(fontSize: 12, color: Colors.black87),
                 maxLines: 2,
                 overflow: TextOverflow.ellipsis,
               ),
@@ -71,20 +79,25 @@ class CartaoTreino extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text(
-                    "${workout["distanceKm"]} km • ${workout["pace"]}",
-                    style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 12,
-                      color: Colors.blueAccent,
+                  Flexible(
+                    child: Text(
+                      "${workout["distanceKm"]} km • ${workout["pace"]}",
+                      style: const TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 12,
+                        color: Colors.blueAccent,
+                      ),
+                      overflow: TextOverflow.ellipsis,
                     ),
                   ),
+                  const SizedBox(width: 4),
                   Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       const Icon(
                         Icons.favorite_rounded,
                         color: Colors.red,
-                        size: 18,
+                        size: 16,
                       ),
                       const SizedBox(width: 4),
                       Text(
