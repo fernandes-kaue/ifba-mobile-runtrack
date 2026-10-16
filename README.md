@@ -50,6 +50,10 @@ O projeto adota estritamente a arquitetura e convenções canônicas trabalhadas
    - Formulário com validação de campos obrigatórios (título, categoria, distância e tempo).
    - Cálculo automático do ritmo médio (*pace* em min/km) em tempo real à medida que o atleta preenche as métricas.
    - Retorno imediato ao feed com confirmação via `Toast`.
+4. **Identificação e Perfil do Atleta (`lib/telas/login.dart`)**
+   - Formulário de login com campos para e-mail e senha, validação de campos e atalho para preenchimento de conta de teste.
+   - Opção para continuar navegando como visitante.
+   - Quando autenticado, exibe o perfil do atleta (avatar, nome, e-mail, resumo de treinos registrados e botão de logoff).
 
 ---
 
@@ -77,8 +81,9 @@ PROJETO/
 │   │   ├── cartao_comentario.dart     # Card com comentário, autor e data formatada
 │   │   └── controles_usuario.dart     # Botões de curtir (coração) e compartilhar (share_plus)
 │   └── telas/
-│       ├── treinos.dart               # Tela de feed com busca em tempo real, grid e login/logout no AppBar
+│       ├── treinos.dart               # Tela de feed com busca em tempo real, grid e atalho para login/perfil
 │       ├── detalhes.dart              # Tela com carrossel de fotos, métricas, comentários e Dismissible para exclusão
+│       ├── login.dart                 # Tela de login com credenciais de atleta e perfil do usuário
 │       └── novo_treino.dart           # Tela de cadastro de novo treino com cálculo de pace automático
 └── test/
     └── widget_test.dart               # Smoke test de inicialização do aplicativo

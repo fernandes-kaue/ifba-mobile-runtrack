@@ -368,11 +368,27 @@ class _DetalhesState extends State<Detalhes> {
                     ),
                   ),
                 )
-              : const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-                  child: Text(
-                    "Conecte-se como atleta para comentar ou curtir o treino.",
-                    style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+              : Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+                  child: Row(
+                    children: [
+                      const Text(
+                        "Conecte-se para comentar ou curtir. ",
+                        style: TextStyle(fontSize: 12, fontStyle: FontStyle.italic),
+                      ),
+                      GestureDetector(
+                        onTap: () => estadoApp.exibirLogin(),
+                        child: const Text(
+                          "Fazer login",
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.blueAccent,
+                            decoration: TextDecoration.underline,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ),
           _comentarios.isNotEmpty

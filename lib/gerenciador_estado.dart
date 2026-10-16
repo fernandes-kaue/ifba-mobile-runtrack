@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:runtrack/usuario.dart';
 
-enum EmExibicao { telaTreinos, telaDetalhes, telaNovoTreino }
+enum EmExibicao { telaTreinos, telaDetalhes, telaNovoTreino, telaLogin }
 
 class GerenciadorEstado extends ChangeNotifier {
   EmExibicao _exibicao = EmExibicao.telaTreinos;
@@ -43,6 +43,12 @@ class GerenciadorEstado extends ChangeNotifier {
 
   void exibirNovoTreino() {
     _exibicao = EmExibicao.telaNovoTreino;
+
+    notifyListeners();
+  }
+
+  void exibirLogin() {
+    _exibicao = EmExibicao.telaLogin;
 
     notifyListeners();
   }

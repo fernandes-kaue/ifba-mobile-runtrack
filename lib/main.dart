@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:runtrack/gerenciador_estado.dart';
 import 'package:runtrack/telas/detalhes.dart';
+import 'package:runtrack/telas/login.dart';
 import 'package:runtrack/telas/novo_treino.dart';
 import 'package:runtrack/telas/treinos.dart';
 
@@ -51,6 +52,8 @@ class _TelaPrincipalState extends State<TelaPrincipal> {
       tela = const Detalhes();
     } else if (estadoApp.exibicao == EmExibicao.telaNovoTreino) {
       tela = const NovoTreino();
+    } else if (estadoApp.exibicao == EmExibicao.telaLogin) {
+      tela = const Login();
     }
 
     return tela;

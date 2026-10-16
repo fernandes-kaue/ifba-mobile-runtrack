@@ -2,10 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:runtrack/autenticador.dart';
 import 'package:runtrack/componentes/cartao_treino.dart';
 import 'package:runtrack/gerenciador_estado.dart';
-import 'package:runtrack/usuario.dart';
 import 'package:toast/toast.dart';
 
 class Treinos extends StatefulWidget {
@@ -134,41 +132,25 @@ class _TreinosState extends State<Treinos> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(right: 12),
+            padding: const EdgeInsets.only(right: 8),
             child: estadoApp.usuario != null
                 ? IconButton(
                     onPressed: () {
-                      Autenticador.logout().then(
-                        (_) => setState(() {
-                          estadoApp.logout();
-
-                          Toast.show(
-                            "Você foi desconectado com sucesso",
-                            duration: Toast.lengthLong,
-                            gravity: Toast.bottom,
-                          );
-                        }),
-                      );
+                      estadoApp.exibirLogin();
                     },
-                    icon: const Icon(Icons.logout),
-                    tooltip: "Sair",
+                    icon: const Icon(
+                      Icons.account_circle,
+                      color: Colors.blueAccent,
+                      size: 28,
+                    ),
+                    tooltip: "Perfil do Atleta (${estadoApp.usuario!.nome})",
                   )
                 : IconButton(
                     onPressed: () {
-                      Autenticador.login().then(
-                        (Usuario? usuario) => setState(() {
-                          estadoApp.login(usuario);
-
-                          Toast.show(
-                            "Conectado como ${usuario?.nome}",
-                            duration: Toast.lengthLong,
-                            gravity: Toast.bottom,
-                          );
-                        }),
-                      );
+                      estadoApp.exibirLogin();
                     },
                     icon: const Icon(Icons.login),
-                    tooltip: "Entrar como atleta",
+                    tooltip: "Entrar como Atleta",
                   ),
           ),
         ],
