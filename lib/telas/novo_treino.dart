@@ -56,12 +56,42 @@ class _NovoTreinoState extends State<NovoTreino> {
 
   void _salvarTreino() {
     if (_formKey.currentState!.validate()) {
+      final distancia =
+          double.tryParse(_controladorDistancia.text.replaceAll(',', '.')) ??
+          0.0;
+      final duracao = int.tryParse(_controladorDuracao.text) ?? 0;
+      final altimetria = int.tryParse(_controladorAltimetria.text);
+      final pace = _calcularPace();
+
+      final novoTreino = {
+        "_id": DateTime.now().millisecondsSinceEpoch,
+        "datetime": DateTime.now().toIso8601String(),
+        "athlete": {
+          "name": estadoApp.usuario?.nome ?? "Kauê Fernandes",
+          "avatar": "avatar.png",
+        },
+        "likes": 0,
+        "workout": {
+          "name": _controladorNome.text.trim(),
+          "description": _controladorDescricao.text.trim().isNotEmpty
+              ? _controladorDescricao.text.trim()
+              : "Treino de $_tipoSelecionado registrado no RunTrack.",
+          "type": _tipoSelecionado,
+          "distanceKm": distancia,
+          "durationMin": duracao,
+          "pace": pace,
+          "elevationM": (altimetria != null && altimetria > 0) ? altimetria : 20,
+          "image": "treino.jpeg",
+        },
+      };
+
+      estadoApp.adicionarTreino(novoTreino);
+
       Toast.show(
         "Treino salvo com sucesso!",
         duration: Toast.lengthLong,
         gravity: Toast.bottom,
       );
-      estadoApp.exibirTreinos();
     }
   }
 

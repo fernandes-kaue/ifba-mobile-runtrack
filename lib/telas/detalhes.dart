@@ -49,6 +49,14 @@ class _DetalhesState extends State<Detalhes> {
   }
 
   Future<dynamic> _acessarTreino(int idTreino) async {
+    if (estadoApp.treinos.isNotEmpty) {
+      final encontrado = estadoApp.treinos.cast<dynamic>().firstWhere(
+        (t) => t["_id"] == idTreino,
+        orElse: () => null,
+      );
+      if (encontrado != null) return encontrado;
+    }
+
     final String conteudo = await rootBundle.loadString(
       "recursos/jsons/treinos.json",
     );

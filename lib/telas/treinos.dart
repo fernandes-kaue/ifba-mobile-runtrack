@@ -55,28 +55,38 @@ class _TreinosState extends State<Treinos> {
       _carregandoTreinos = true;
     });
 
-    _acessarTreinos().then((treinos) async {
-      setState(() {
-        if (_filtro.isNotEmpty) {
-          _treinos = treinos
-              .where(
-                (t) =>
-                    t["workout"]["name"]
-                        .toString()
-                        .toLowerCase()
-                        .contains(_filtro.toLowerCase()) ||
-                    t["athlete"]["name"]
-                        .toString()
-                        .toLowerCase()
-                        .contains(_filtro.toLowerCase()),
-              )
-              .toList();
-        } else {
-          _treinos = List<dynamic>.from(treinos);
-        }
+    if (estadoApp.treinos.isNotEmpty) {
+      _aplicarTreinosNaLista(estadoApp.treinos);
+      return;
+    }
 
-        _carregandoTreinos = false;
-      });
+    _acessarTreinos().then((treinos) async {
+      estadoApp.inicializarTreinos(treinos);
+      _aplicarTreinosNaLista(estadoApp.treinos);
+    });
+  }
+
+  void _aplicarTreinosNaLista(List<dynamic> listaFonte) {
+    setState(() {
+      if (_filtro.isNotEmpty) {
+        _treinos = listaFonte
+            .where(
+              (t) =>
+                  t["workout"]["name"]
+                      .toString()
+                      .toLowerCase()
+                      .contains(_filtro.toLowerCase()) ||
+                  t["athlete"]["name"]
+                      .toString()
+                      .toLowerCase()
+                      .contains(_filtro.toLowerCase()),
+            )
+            .toList();
+      } else {
+        _treinos = List<dynamic>.from(listaFonte);
+      }
+
+      _carregandoTreinos = false;
     });
   }
 

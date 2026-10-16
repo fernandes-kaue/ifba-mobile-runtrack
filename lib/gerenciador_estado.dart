@@ -13,6 +13,21 @@ class GerenciadorEstado extends ChangeNotifier {
   Usuario? _usuario;
   Usuario? get usuario => _usuario;
 
+  final List<dynamic> _treinos = [];
+  List<dynamic> get treinos => _treinos;
+
+  void inicializarTreinos(List<dynamic> lista) {
+    if (_treinos.isEmpty) {
+      _treinos.addAll(lista);
+    }
+  }
+
+  void adicionarTreino(dynamic novoTreino) {
+    _treinos.insert(0, novoTreino);
+    _exibicao = EmExibicao.telaTreinos;
+    notifyListeners();
+  }
+
   void exibirTreinos() {
     _exibicao = EmExibicao.telaTreinos;
 
