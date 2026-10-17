@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:toast/toast.dart';
 
 class ControlesUsuario extends StatelessWidget {
   final dynamic treino;
@@ -44,9 +46,19 @@ class ControlesUsuario extends StatelessWidget {
             final workout = treino["workout"] ?? {};
             final texto =
                 'Treino de corrida: ${workout["name"] ?? "Treino"} (${workout["distanceKm"] ?? 0} km em ${workout["durationMin"] ?? 0} min, ritmo de ${workout["pace"] ?? "N/A"}). Registrado no RunTrack!\n\nBaixe o RunTrack!';
-            SharePlus.instance.share(
-              ShareParams(title: "RunTrack", text: texto),
+
+            Clipboard.setData(ClipboardData(text: texto));
+            Toast.show(
+              "Compartilhando treino...",
+              duration: Toast.lengthLong,
+              gravity: Toast.bottom,
             );
+
+            try {
+              SharePlus.instance.share(
+                ShareParams(title: "RunTrack", text: texto),
+              );
+            } catch (_) {}
           },
           icon: const Icon(Icons.share),
           color: Colors.blue,

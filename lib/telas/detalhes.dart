@@ -258,7 +258,11 @@ class _DetalhesState extends State<Detalhes> {
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Row(
           children: [
-            Image.asset("recursos/imagens/avatar.png", width: 34),
+            CircleAvatar(
+              radius: 16,
+              backgroundImage: const AssetImage("recursos/imagens/avatar.png"),
+              backgroundColor: Colors.grey.shade200,
+            ),
             const SizedBox(width: 8),
             Expanded(
               child: Text(
@@ -277,9 +281,12 @@ class _DetalhesState extends State<Detalhes> {
           ],
         ),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 800),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
           SizedBox(
             height: 220,
             child: Stack(
@@ -317,6 +324,58 @@ class _DetalhesState extends State<Detalhes> {
                     ),
                   ),
                 ),
+                if (_slideSelecionado > 0)
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 8.0),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.black38,
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.chevron_left,
+                            color: Colors.white,
+                            size: 28,
+                          ),
+                          onPressed: () {
+                            _controladorSlides.previousPage(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
+                if (_slideSelecionado < 2)
+                  Align(
+                    alignment: Alignment.centerRight,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                          color: Colors.black38,
+                          shape: BoxShape.circle,
+                        ),
+                        child: IconButton(
+                          icon: const Icon(
+                            Icons.chevron_right,
+                            color: Colors.white,
+                            size: 28,
+                          ),
+                          onPressed: () {
+                            _controladorSlides.nextPage(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                            );
+                          },
+                        ),
+                      ),
+                    ),
+                  ),
               ],
             ),
           ),
@@ -329,6 +388,13 @@ class _DetalhesState extends State<Detalhes> {
               selectedColor: Colors.blueAccent,
               duration: const Duration(milliseconds: 200),
               boxShape: BoxShape.circle,
+              onItemClicked: (index) {
+                _controladorSlides.animateToPage(
+                  index,
+                  duration: const Duration(milliseconds: 300),
+                  curve: Curves.easeInOut,
+                );
+              },
             ),
           ),
           CartaoDetalhesTreino(treino: _treino),
@@ -396,7 +462,9 @@ class _DetalhesState extends State<Detalhes> {
               : _exibirMensagemComentariosInexistentes(),
         ],
       ),
-    );
+    ),
+  ),
+);
   }
 
   @override

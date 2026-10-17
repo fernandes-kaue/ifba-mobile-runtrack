@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:runtrack/gerenciador_estado.dart';
@@ -10,6 +11,18 @@ void main() {
   runApp(const RunTrack());
 }
 
+class ComportamentoRolagem extends MaterialScrollBehavior {
+  const ComportamentoRolagem();
+
+  @override
+  Set<PointerDeviceKind> get dragDevices => {
+        PointerDeviceKind.touch,
+        PointerDeviceKind.mouse,
+        PointerDeviceKind.trackpad,
+        PointerDeviceKind.stylus,
+      };
+}
+
 class RunTrack extends StatelessWidget {
   const RunTrack({super.key});
 
@@ -20,6 +33,7 @@ class RunTrack extends StatelessWidget {
       child: MaterialApp(
         title: 'RunTrack',
         debugShowCheckedModeBanner: false,
+        scrollBehavior: const ComportamentoRolagem(),
         theme: ThemeData(
           useMaterial3: true,
           colorScheme: ColorScheme.fromSeed(
