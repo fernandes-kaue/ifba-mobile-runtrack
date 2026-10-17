@@ -16,6 +16,11 @@ class GerenciadorEstado extends ChangeNotifier {
   final List<dynamic> _treinos = [];
   List<dynamic> get treinos => _treinos;
 
+  final List<dynamic> _comentarios = [];
+  List<dynamic> get comentarios => _comentarios;
+  bool _comentariosCarregados = false;
+  bool get comentariosCarregados => _comentariosCarregados;
+
   void inicializarTreinos(List<dynamic> lista) {
     if (_treinos.isEmpty) {
       _treinos.addAll(lista);
@@ -26,6 +31,34 @@ class GerenciadorEstado extends ChangeNotifier {
     _treinos.insert(0, novoTreino);
     _exibicao = EmExibicao.telaTreinos;
     notifyListeners();
+  }
+
+  void inicializarComentarios(List<dynamic> lista) {
+    if (!_comentariosCarregados) {
+      _comentarios.addAll(lista);
+      _comentariosCarregados = true;
+    }
+  }
+
+  void adicionarComentario(dynamic novoComentario) {
+    _comentarios.insert(0, novoComentario);
+    _comentariosCarregados = true;
+    notifyListeners();
+  }
+
+  void removerComentario(dynamic comentario) {
+    _comentarios.remove(comentario);
+    notifyListeners();
+  }
+
+  List<dynamic> comentariosDoTreino(int idTreino) {
+    return _comentarios
+        .where(
+          (c) =>
+              c["workoutId"]?.toString() == idTreino.toString() ||
+              c["productId"]?.toString() == idTreino.toString(),
+        )
+        .toList();
   }
 
   void exibirTreinos() {

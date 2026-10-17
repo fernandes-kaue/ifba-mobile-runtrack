@@ -75,6 +75,7 @@ class _DetalhesState extends State<Detalhes> {
       if (!mounted) return;
       setState(() {
         _treino = treino;
+        _curtiu = _treino["usuarioCurtiu"] == true;
       });
       _carregarComentarios();
     });
@@ -95,17 +96,20 @@ class _DetalhesState extends State<Detalhes> {
       _carregandoComentarios = true;
     });
 
-    _acessarComentarios().then((comentarios) {
+    if (estadoApp.comentariosCarregados) {
       if (!mounted) return;
       setState(() {
-        _comentarios = comentarios
-            .where(
-              (c) =>
-                  c["workoutId"] == _treino["_id"] ||
-                  c["productId"] == _treino["_id"],
-            )
-            .toList();
+        _comentarios = estadoApp.comentariosDoTreino(_treino["_id"]);
+        _carregandoComentarios = false;
+      });
+      return;
+    }
 
+    _acessarComentarios().then((comentarios) {
+      estadoApp.inicializarComentarios(comentarios);
+      if (!mounted) return;
+      setState(() {
+        _comentarios = estadoApp.comentariosDoTreino(_treino["_id"]);
         _carregandoComentarios = false;
       });
     });
@@ -189,8 +193,11 @@ class _DetalhesState extends State<Detalhes> {
                       );
                     },
                     onDismissed: (direction) {
+                      final comentarioRemovido = _comentarios[index];
+                      estadoApp.removerComentario(comentarioRemovido);
                       setState(() {
-                        _comentarios.removeAt(index);
+                        _comentarios =
+                            estadoApp.comentariosDoTreino(_treino["_id"]);
                       });
                       Toast.show(
                         "Comentário removido",
@@ -208,18 +215,22 @@ class _DetalhesState extends State<Detalhes> {
   void _adicionarComentario(String conteudo) {
     if (conteudo.trim().isEmpty) return;
 
+    final novoComentario = {
+      "_id": DateTime.now().millisecondsSinceEpoch,
+      "workoutId": _treino["_id"],
+      "user": {
+        "userId": "1",
+        "email": estadoApp.usuario?.email ?? "atleta@runtrack.com",
+        "name": estadoApp.usuario?.nome ?? "Atleta",
+      },
+      "datetime": DateTime.now().toIso8601String(),
+      "content": conteudo.trim(),
+    };
+
+    estadoApp.adicionarComentario(novoComentario);
+
     setState(() {
-      _comentarios.insert(0, {
-        "_id": _comentarios.length + 1,
-        "workoutId": _treino["_id"],
-        "user": {
-          "userId": "1",
-          "email": estadoApp.usuario?.email,
-          "name": estadoApp.usuario?.nome,
-        },
-        "datetime": DateTime.now().toIso8601String(),
-        "content": conteudo.trim(),
-      });
+      _comentarios = estadoApp.comentariosDoTreino(_treino["_id"]);
       _controladorNovoComentario.clear();
     });
 
@@ -233,6 +244,7 @@ class _DetalhesState extends State<Detalhes> {
   void _onCurtiuDescurtiu() {
     setState(() {
       _curtiu = !_curtiu;
+      _treino["usuarioCurtiu"] = _curtiu;
       if (_curtiu) {
         _treino["likes"] = (_treino["likes"] ?? 0) + 1;
       } else {
