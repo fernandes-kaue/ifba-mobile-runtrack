@@ -1,65 +1,76 @@
 # 🏃 RunTrack — Gerenciador de Treinos de Corrida
 
-> **Disciplina:** Programação Móvel  
+> **Disciplina:** Programação Móvel (6º Semestre BSI)  
 > **Professor:** Luis Paulo da Silva Carvalho  
 > **Aluno:** Kauê Santos Fernandes  
 > **Instituição:** Instituto Federal da Bahia (IFBA) — Campus Vitória da Conquista  
-> **Tema Aprovado:** ID 14 — RunTrack  
+> **Tema Aprovado:** ID 14 — RunTrack (Acompanhamento e registro de treinos de corrida de rua)  
+> **Repositório Oficial:** [https://github.com/fernandes-kaue/ifba-mobile-runtrack](https://github.com/fernandes-kaue/ifba-mobile-runtrack)  
 
 ---
 
 ## 📹 Vídeo de Apresentação e Demonstração
-- **Link do Vídeo (máx. 3 minutos):** [Clique aqui para assistir ao vídeo no YouTube / Google Drive](https://link-do-seu-video-aqui)
+- **Link do Vídeo (máx. 3 minutos):** [Clique aqui para assistir ao vídeo no YouTube / Google Drive](https://link-do-seu-video-aqui)  
 
 ---
 
-## 📖 Sobre o Projeto
+## 📖 Sobre o Aplicativo
 O **RunTrack** é um aplicativo mobile desenvolvido em **Flutter e Dart** para acompanhamento, visualização e registro de treinos de corrida de rua. 
 
-O projeto adota estritamente a arquitetura e convenções canônicas trabalhadas em aula (projeto de referência *Marcas*), estruturado para atender com rigor a todos os requisitos da **Avaliação I (Front-End)** da disciplina e preparando a base para a futura integração com API REST na **Avaliação II (Back-End)**.
+O projeto adota a arquitetura, convenções e organização canônicas trabalhadas pelo professor em sala de aula (projeto de referência *Marcas*), estruturado para atender com rigor a todos os requisitos da **Avaliação I (Front-End)** e preparando a base para a futura integração com API REST na **Avaliação II (Back-End)**.
 
 ---
 
-## 🎯 Atendimento aos Requisitos da Avaliação
+## 🎯 Atendimento aos Requisitos do Edital
 
-| Requisito | Como o RunTrack implementa |
+| Requisito do Edital | Como o RunTrack Implementa |
 | :--- | :--- |
-| **Mínimo de 2 telas com listagem** | Implementa 3 telas integradas: **Treinos (Grid de treinos com busca)**, **Detalhes do Treino (Carrossel, métricas e comentários com Dismissible)** e **Registrar Novo Treino (Formulário com cálculo de pace)**. |
-| **Login e Logoff (Regra 12)** | Autenticação mockada via `Autenticador` com controle de sessão no AppBar e feedback através do pacote `toast`. |
-| **Modo Visitante vs. Logado (Regra 12)** | **Visitante:** pode navegar livremente pelo feed público de treinos, realizar buscas textuais, inspecionar detalhes completos e compartilhar treinos.<br>**Logado:** pode curtir treinos com atualização reativa do contador, publicar comentários, excluir seus próprios comentários via gesto de arrastar (`Dismissible` com confirmação) e cadastrar novos treinos via FloatingActionButton. |
-| **Manipulação via JSON Estático** | Carga inicial e consumo dinâmico a partir de `recursos/jsons/treinos.json` e `recursos/jsons/comentarios.json` via `rootBundle` e `json.decode`. |
-| **Tema Exclusivo** | Tema esportivo original e exclusivo focado em treinos de corrida e bem-estar (Tema ID 14 aprovado). |
+| **Mínimo de 2 telas com listagem (Item 11)** | Implementa **4 telas integradas**: **Treinos** (listagem em grid com busca), **Detalhes** (carrossel de fotos, estatísticas e listagem de comentários com exclusão via gesto), **Identificação e Perfil** (login com formulário e painel do atleta) e **Novo Treino** (cadastro com cálculo automático de ritmo). |
+| **Login e Logoff Mockado (Itens 12 e 13)** | Implementado via classe `Autenticador` com tela dedicada de login contendo campos de e-mail e senha, botão de atalho para preenchimento de teste rápido, controle de sessão em memória (`Usuario`) e feedback visual com o pacote `toast`. |
+| **Modo Visitante vs. Logado (Item 12)** | **Visitante:** pode navegar livremente pelo feed público de treinos, realizar buscas textuais, inspecionar detalhes completos e disparar o compartilhamento nativo via `share_plus`.<br>**Logado:** ganha acesso aos controles sociais (curtir treinos com contador dinâmico, publicar comentários e remover seus próprios comentários via `Dismissible`), além do cadastro de novos treinos via `FloatingActionButton`. |
+| **Manipulação via JSON Estático (Item 14)** | Carga inicial e consumo dinâmico a partir dos arquivos locais `recursos/jsons/treinos.json` e `recursos/jsons/comentarios.json` através de `rootBundle` e `json.decode`, com persistência em memória durante a sessão. |
+| **Tema Exclusivo (Item 4)** | Tema esportivo focado em treinos de corrida e bem-estar (Tema ID 14 homologado na planilha oficial), sem relação com produtos comerciais ou marcas. |
+| **Entrega via Git (Item 15)** | Repositório estruturado no GitHub com histórico de commits granulares cobrindo todo o ciclo de desenvolvimento do projeto. |
 
 ---
 
-## 📱 Estrutura de Telas e Componentes
+## 🔑 Credenciais Mockadas para Avaliação Rápida
 
-1. **Treinos (`lib/telas/treinos.dart`)**
-   - Campo de busca na AppBar para filtragem dinâmica por título de treino ou nome de atleta.
-   - Botão de Login / Logout no canto superior direito com notificações via `Toast`.
-   - Grid de treinos responsivo com atualização via `RefreshIndicator` e paginação com `ScrollController`.
-   - Botão de ação flutuante (`FloatingActionButton`) para cadastrar novo treino (exibido para atletas autenticados).
-2. **Detalhes do Treino (`lib/telas/detalhes.dart`)**
-   - AppBar com avatar e identificação do atleta e ação de retorno ao feed.
-   - Carrossel de fotos do treino com `PageView.builder` e indicador de páginas `PageViewDotIndicator`.
-   - Controles de interação (`ControlesUsuario`) com botão de curtir (coração) e compartilhamento nativo via `share_plus`.
-   - Cartão com métricas completas: distância (km), duração (min), ritmo médio (*pace*), altimetria (m) e contagem de curtidas.
-   - Seção de comentários da comunidade com suporte a `Dismissible` para exclusão de comentários do próprio usuário com diálogo de confirmação (`AlertDialog`).
-   - Campo para inserção de novo comentário (visível para usuários autenticados).
-3. **Registrar Novo Treino (`lib/telas/novo_treino.dart`)**
-   - Formulário com validação de campos obrigatórios (título, categoria, distância e tempo).
-   - Cálculo automático do ritmo médio (*pace* em min/km) em tempo real à medida que o atleta preenche as métricas.
-   - Retorno imediato ao feed com confirmação via `Toast`.
-4. **Identificação e Perfil do Atleta (`lib/telas/login.dart`)**
-   - Formulário de login com campos para e-mail e senha, validação de campos e atalho para preenchimento de conta de teste.
-   - Opção para continuar navegando como visitante.
-   - Quando autenticado, exibe o perfil do atleta (avatar, nome, e-mail, resumo de treinos registrados e botão de logoff).
+Na tela de **Identificação do Atleta**, é possível digitar manualmente ou acionar o botão **"Preencher Credenciais de Teste"**:
+- **E-mail:** `kaue@runtrack.com`
+- **Senha:** `123456`
+- **Atleta associado:** Kauê Fernandes
+
+---
+
+## 📱 Telas e Componentes da Aplicação
+
+### 1. Feed de Treinos (`lib/telas/treinos.dart`)
+- **Barra Superior (AppBar):** Campo de busca textual em tempo real por título de treino ou atleta, e atalho para a tela de autenticação/perfil.
+- **Grid de Treinos:** Cartões responsivos (`CartaoTreino`) com foto ilustrativa, avatar do atleta, distância (km), ritmo médio (*pace* em min/km), observações e contador de curtidas.
+- **Interações:** Atualização dinâmica por gesto (`RefreshIndicator`) e paginação por rolagem via `ScrollController`.
+- **Ação Rápida:** Botão flutuante (`FloatingActionButton`) para cadastrar novo treino (exibido para atletas autenticados).
+
+### 2. Detalhes do Treino (`lib/telas/detalhes.dart`)
+- **Carrossel de Fotos:** `PageView.builder` com fotos do percurso e indicador por pontos animado (`PageViewDotIndicator`).
+- **Controles de Interação (`ControlesUsuario`):** Botão de curtir (coração reativo com alternância visual e contador) e botão de compartilhamento externo nativo via `share_plus`.
+- **Cartão de Estatísticas (`CartaoDetalhesTreino`):** Quadro com distância, tempo de treino, ritmo médio (*pace*), ganho de altimetria acumulado e likes.
+- **Seção de Comentários:** Listagem de avaliações da comunidade (`CartaoComentario`) com suporte a exclusão de comentários do próprio autor via gesto de arrastar (`Dismissible`) e diálogo de confirmação (`AlertDialog`). Campo de envio imediato para atletas logados.
+
+### 3. Identificação e Perfil do Atleta (`lib/telas/login.dart`)
+- **Modo Visitante (Formulário):** Entradas validadas para e-mail e senha, alternância de visibilidade da senha, botão de preenchimento automático para testes e link para continuar navegando como visitante.
+- **Modo Autenticado (Perfil):** Exibição do avatar, nome, e-mail, resumo de treinos registrados na sessão e botão explícito de logoff / desconexão.
+
+### 4. Cadastro de Novo Treino (`lib/telas/novo_treino.dart`)
+- **Formulário com Validação:** Campos obrigatórios para título, tipo de treino (Longo, Intervalado, Regenerativo, Tempo Run, Fartlek), distância (km) e duração (minutos).
+- **Cálculo de Ritmo em Tempo Real:** Cálculo dinâmico do *pace* médio (minutos e segundos por km) atualizado instantaneamente à medida que distância e tempo são informados.
+- **Persistência em Memória:** Ao salvar, o novo treino é inserido no topo da lista global (`estadoApp.treinos`), atualizando o feed principal e ficando disponível para inspeção de detalhes.
 
 ---
 
 ## 📂 Arquitetura do Código-Fonte
 
-A arquitetura do projeto segue o modelo canônico apresentado em aula:
+A arquitetura do projeto segue o modelo canônico trabalhado em aula:
 
 ```
 PROJETO/
@@ -82,29 +93,52 @@ PROJETO/
 │   │   └── controles_usuario.dart     # Botões de curtir (coração) e compartilhar (share_plus)
 │   └── telas/
 │       ├── treinos.dart               # Tela de feed com busca em tempo real, grid e atalho para login/perfil
-│       ├── detalhes.dart              # Tela com carrossel de fotos, métricas, comentários e Dismissible para exclusão
-│       ├── login.dart                 # Tela de login com credenciais de atleta e perfil do usuário
-│       └── novo_treino.dart           # Tela de cadastro de novo treino com cálculo de pace automático
+│       ├── detalhes.dart              # Tela com carrossel de fotos, métricas, comentários e Dismissible
+│       ├── login.dart                 # Tela de identificação com credenciais de atleta e perfil
+│       └── novo_treino.dart           # Formulário de cadastro de novo treino com cálculo de pace automático
 └── test/
     └── widget_test.dart               # Smoke test de inicialização do aplicativo
 ```
 
 ---
 
+## 📦 Pacotes e Dependências Utilizadas
+
+- **`provider`:** Gerenciamento centralizado de estado reativo da aplicação.
+- **`intl`:** Formatação amigável de datas e horários nos comentários.
+- **`toast`:** Mensagens temporárias de feedback de ações (login, logout, comentários, cadastro).
+- **`share_plus`:** Compartilhamento nativo de treinos com outros aplicativos.
+- **`page_view_dot_indicator`:** Indicador visual em pontos para o carrossel de fotos.
+
+---
+
 ## 🚀 Como Executar o Projeto
 
-### Pré-requisitos:
+### Pré-requisitos
 - Flutter SDK $\ge$ 3.13.0 instalado e configurado no PATH
-- Emulador Android, dispositivo conectado ou suporte a Desktop Linux configurado
+- Emulador Android (Android SDK) configurado ou ambiente Desktop Linux
 
-### Passos:
-1. Obtenha as dependências:
+### Execução
+
+1. Clone o repositório ou navegue até a pasta raiz:
+   ```bash
+   git clone https://github.com/fernandes-kaue/ifba-mobile-runtrack.git
+   cd ifba-mobile-runtrack
+   ```
+
+2. Obtenha as dependências do projeto:
    ```bash
    flutter pub get
    ```
 
-2. Execute o aplicativo:
+3. Execute a validação estática de código e os testes:
+   ```bash
+   flutter analyze
+   flutter test
+   ```
+
+4. Execute o aplicativo no emulador ou dispositivo conectado:
    ```bash
    flutter run
    ```
-   *(Ou execute no desktop Linux com `flutter run -d linux`)*
+   *(Ou execute diretamente no desktop Linux com `flutter run -d linux`)*
